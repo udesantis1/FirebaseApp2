@@ -1,5 +1,6 @@
 package com.example.firebaseapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,5 +56,15 @@ public class PastClasses extends AppCompatActivity {
                 }
             }
         });
+
+        courseRecyclerAdapter.setOnItemClickListener(new CourseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                //Modifica: ottenere l'ID dell'item e aprire l'activity corretta
+                startActivity(new Intent(getApplicationContext(), LessonsActivity.class));
+            }
+        });
     }
+
 }

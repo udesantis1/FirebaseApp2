@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Lista dei corsi di ITPS"
+        android:textAlignment="center"
         android:textSize="20dp"
         android:textColor="@android:color/black"
         android:padding="8dp"
