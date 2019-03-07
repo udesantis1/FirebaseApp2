@@ -1,5 +1,7 @@
 package com.example.firebaseapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,20 +10,16 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.List;
 
 public class CourseRecyclerAdapter extends RecyclerView.Adapter<CourseRecyclerAdapter.ViewHolder> {
 
     private List<Course> course_list;
-    private OnItemClickListener listener;
+    private Context context;
+    private FirebaseFirestore firebaseFirestore;
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
 
     public CourseRecyclerAdapter(List<Course> course_list)
     {
@@ -34,24 +32,11 @@ public class CourseRecyclerAdapter extends RecyclerView.Adapter<CourseRecyclerAd
 
         private TextView course_name_view;
 
-        public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mView = itemView;
 
-            mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(listener != null)
-                    {
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
-                            listener.onItemClick(position);
-                        }
-                    }
-
-                }
-            });
         }
 
         public void setName(String text)
@@ -67,15 +52,29 @@ public class CourseRecyclerAdapter extends RecyclerView.Adapter<CourseRecyclerAd
     public CourseRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.courses_list_item, viewGroup, false);
+        context = viewGroup.getContext();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
-        return new ViewHolder(view, listener);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CourseRecyclerAdapter.ViewHolder viewHolder, int i) {
 
+        final String courseId = course_list.get(i).CourseID;
+
         String course_name = course_list.get(i).getCourseName();
         viewHolder.setName(course_name);
+
+
+        viewHolder.course_name_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, LessonsActivity.class);
+                intent.putExtra("courseID", courseId);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

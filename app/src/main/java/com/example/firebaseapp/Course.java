@@ -1,7 +1,7 @@
 package com.example.firebaseapp;
 
 
-public class Course {
+public class Course extends CourseID{
 
     public String courseName;
 

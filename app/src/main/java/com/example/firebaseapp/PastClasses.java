@@ -1,6 +1,6 @@
 package com.example.firebaseapp;
 
-import android.content.Intent;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +36,7 @@ public class PastClasses extends AppCompatActivity {
         courseRecyclerAdapter = new CourseRecyclerAdapter(course_list);
         courses_list_view.setLayoutManager(new LinearLayoutManager(this));
         courses_list_view.setAdapter(courseRecyclerAdapter);
+        courses_list_view.setHasFixedSize(true);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         //SnapshotListener help to retrieve data in real time
@@ -48,7 +49,8 @@ public class PastClasses extends AppCompatActivity {
                     //check if data is edited
                     if(doc.getType() == DocumentChange.Type.ADDED){
 
-                        Course course = doc.getDocument().toObject(Course.class);
+                        String courseID = doc.getDocument().getId();
+                        Course course = doc.getDocument().toObject(Course.class).withId(courseID);
                         course_list.add(course);
 
                         courseRecyclerAdapter.notifyDataSetChanged();
@@ -57,14 +59,6 @@ public class PastClasses extends AppCompatActivity {
             }
         });
 
-        courseRecyclerAdapter.setOnItemClickListener(new CourseRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-
-                //Modifica: ottenere l'ID dell'item e aprire l'activity corretta
-                startActivity(new Intent(getApplicationContext(), LessonsActivity.class));
-            }
-        });
     }
 
 }
