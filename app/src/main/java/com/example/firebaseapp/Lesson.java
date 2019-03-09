@@ -6,6 +6,7 @@ import java.util.Date;
 public class Lesson extends LessonID
 {
     private String lesson_name;
+    private String courseID;
 
     public Lesson()
     {
@@ -25,5 +26,9 @@ public class Lesson extends LessonID
 
 
         return lesson_name;
+    }
+
+    public String getCourseID() {
+        return courseID;
     }
 }

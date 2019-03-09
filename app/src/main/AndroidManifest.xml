@@ -13,11 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".LessonsActivity"
+        <activity android:name=".CommentsActivity"></activity>
+        <activity
+            android:name=".LessonsActivity"
             android:parentActivityName=".PastClasses">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".PastClasses"/>
+                android:value=".PastClasses" />
         </activity>
         <activity
             android:name=".PastClasses"
