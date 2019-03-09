@@ -7,6 +7,7 @@
     tools:context=".CommentsActivity">
 
 
+
     <TextView
         android:id="@+id/comment_label"
         android:layout_width="wrap_content"
