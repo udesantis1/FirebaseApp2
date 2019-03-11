@@ -47,10 +47,10 @@ public class ShowRating extends AppCompatActivity {
 
     }
     private void addRating(){
-        float rate=rb.getRating();
+        float rate=rb.getRating(); // il valore del rate
 
-       String id= databaseRating.push().getKey();
-       Rating ratei=new Rating();
+        String id= databaseRating.push().getKey();
+       Rating ratei=new Rating();  // inserire in new Rating () il nome dell'user e rate  (Ex: new Rating (nomeUser,rate)
        databaseRating.child(id).setValue(ratei);
         Toast.makeText(this,"Vote added",Toast.LENGTH_LONG).show();
     }
